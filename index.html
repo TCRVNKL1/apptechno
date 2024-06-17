@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Techno App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Music Techno App</h1>
+        <form id="musicForm">
+            <div class="form-group">
+                <label for="location">איפה אתה?</label>
+                <input type="text" class="form-control" id="location" placeholder="הזן את המיקום שלך">
+            </div>
+            <div class="form-group">
+                <label for="listeningMethod">איך אתה שומע?</label>
+                <input type="text" class="form-control" id="listeningMethod" placeholder="אוזניות, רמקול וכו'">
+            </div>
+            <div class="form-group">
+                <label for="mood">מה מצב הרוח שלך?</label>
+                <input type="text" class="form-control" id="mood" placeholder="הזן את מצב הרוח שלך">
+            </div>
+            <div class="form-group">
+                <label for="freeText">כתיבה חופשית</label>
+                <textarea class="form-control" id="freeText" rows="3" placeholder="הזן כתיבה חופשית"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">שלח ל-AI</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            console.log("Document ready");
+            $('#musicForm').submit(function(event) {
+                event.preventDefault();
+                console.log("Form submitted");
+
+                const location = $('#location').val();
+                const listeningMethod = $('#listeningMethod').val();
+                const mood = $('#mood').val();
+                const freeText = $('#freeText').val();
+
+                console.log("Location:", location);
+                console.log("Listening Method:", listeningMethod);
+                console.log("Mood:", mood);
+                console.log("Free Text:", freeText);
+
+                const data = {
+                    location,
+                    listeningMethod,
+                    mood,
+                    freeText
+                };
+
+                axios.post('https://api.your-ai-service.com/create-music', data)
+                    .then(response => {
+                        alert('מוזיקה נוצרה בהצלחה!');
+                    })
+                    .catch(error => {
+                        console.error('There was an error!', error);
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
